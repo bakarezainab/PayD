@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "@creit.tech/stellar-wallets-kit": "^1.9.5",
+    "@sentry/react": "^10.39.0",
     "@stellar/design-system": "^3.2.5",
     "@stellar/stellar-sdk": "^14.3.3",
     "@stellar/stellar-xdr-json": "^23.0.0",
@@ -25,6 +26,7 @@
     "lucide-react": "^0.575.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-joyride": "^2.9.3",
     "react-router-dom": "^7.9.6",
     "tailwindcss": "^4.2.0",
     "zod": "^4.1.13"

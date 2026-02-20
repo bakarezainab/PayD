@@ -47,8 +47,8 @@ export default function PayrollScheduler() {
         <div className="flex-1 flex flex-col items-center justify-start p-12 max-w-4xl mx-auto w-full">
             <div className="w-full mb-12 flex items-end justify-between border-b border-hi pb-8">
                 <div>
-                   <h1 className="text-4xl font-black mb-2 tracking-tight">Payroll <span className="text-accent">Scheduler</span></h1>
-                   <p className="text-muted font-mono text-sm tracking-wider uppercase">Automated distribution engine</p>
+                    <h1 className="text-4xl font-black mb-2 tracking-tight">Payroll <span className="text-accent">Scheduler</span></h1>
+                    <p className="text-muted font-mono text-sm tracking-wider uppercase">Automated distribution engine</p>
                 </div>
                 <AutosaveIndicator saving={saving} lastSaved={lastSaved} />
             </div>
@@ -115,6 +115,7 @@ export default function PayrollScheduler() {
 
                 <div className="md:col-span-2 pt-6">
                     <button
+                        id="tour-init-payroll"
                         type="submit"
                         className="w-full py-4 bg-accent text-bg font-black rounded-xl hover:scale-[1.01] transition-transform shadow-lg shadow-accent/10 uppercase tracking-widest text-sm"
                     >

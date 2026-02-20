@@ -50,7 +50,7 @@ export default function EmployeeEntry() {
                     <h1 className="text-4xl font-black mb-2 tracking-tight">Workforce <span className="text-accent">Directory</span></h1>
                     <p className="text-muted font-mono text-sm tracking-wider uppercase">Employee roster and compliance</p>
                 </div>
-                <button className="px-5 py-2.5 bg-accent text-bg font-bold rounded-lg hover:bg-accent/90 transition-all flex items-center gap-2 text-sm shadow-lg shadow-accent/10">
+                <button id="tour-add-employee" className="px-5 py-2.5 bg-accent text-bg font-bold rounded-lg hover:bg-accent/90 transition-all flex items-center gap-2 text-sm shadow-lg shadow-accent/10">
                     <Icon.Plus size="sm" />
                     Add Employee
                 </button>
