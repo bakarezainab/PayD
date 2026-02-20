@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] text-center px-6 py-12">
-      <div className="mb-10 p-8 glass glow-mint rounded-full relative">
+      <div id="tour-welcome" className="mb-10 p-8 glass glow-mint rounded-full relative">
         <Icon.Rocket01 size="xl" className="text-accent relative z-20" />
         <div className="absolute inset-0 bg-accent opacity-5 blur-2xl rounded-full" />
       </div>
