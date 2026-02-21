@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Code, User, Wallet, FileText } from "lucide-react";
+import { Code, User, Wallet, FileText, Globe } from "lucide-react";
 import { Avatar } from "./Avatar";
 
 const AppNav: React.FC = () => {
@@ -56,6 +56,21 @@ const AppNav: React.FC = () => {
                     <FileText className="w-4 h-4" />
                 </span>
                 Reports
+            </NavLink>
+
+            <NavLink
+                to="/cross-asset-payment"
+                className={({ isActive }) =>
+                    `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+                        ? "text-(--accent) bg-white/5"
+                        : "text-(--muted) hover:bg-white/10 hover:text-white"
+                    }`
+                }
+            >
+                <span className="opacity-70">
+                    <Globe className="w-4 h-4" />
+                </span>
+                Cross-Asset
             </NavLink>
 
             <div className="w-px h-5 bg-(--border-hi) mx-2" />

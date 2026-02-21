@@ -9,6 +9,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import ErrorFallback from "./components/ErrorFallback";
 import Settings from "./pages/Settings";
 import CustomReportBuilder from "./pages/CustomReportBuilder";
+import CrossAssetPayment from "./pages/CrossAssetPayment";
 import { useTranslation } from "react-i18next";
 
 function App() {
@@ -113,6 +114,14 @@ function App() {
                     element={
                         <ErrorBoundary fallback={<ErrorFallback />}>
                             <HelpCenter />
+                        </ErrorBoundary>
+                    }
+                />
+                <Route
+                    path="/cross-asset-payment"
+                    element={
+                        <ErrorBoundary fallback={<ErrorFallback />}>
+                            <CrossAssetPayment />
                         </ErrorBoundary>
                     }
                 />
