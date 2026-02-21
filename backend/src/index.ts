@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config/env';
 import searchRoutes from './routes/searchRoutes';
+import employeeRoutes from './routes/employeeRoutes';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/search', searchRoutes);
+app.use('/api/employees', employeeRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
