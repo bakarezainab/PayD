@@ -2,7 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config/env';
 import searchRoutes from './routes/searchRoutes';
-import employeeRoutes from './routes/employeeRoutes';
+import paymentRoutes from './routes/paymentRoutes';
+import authRoutes from './routes/authRoutes';
+
+import { HealthController } from './controllers/healthController';
 
 const app = express();
 
@@ -12,13 +15,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/search', searchRoutes);
-app.use('/api/employees', employeeRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
+app.get('/health', HealthController.getHealthStatus);
 
 // 404 handler
 app.use((req, res) => {
@@ -26,7 +28,8 @@ app.use((req, res) => {
 });
 
 // Error handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Error:', err);
   res.status(err.status || 500).json({
     error: err.message || 'Internal server error',
