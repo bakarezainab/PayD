@@ -13,6 +13,7 @@ import balanceRoutes from '../balanceRoutes';
 import trustlineRoutes from '../trustlineRoutes';
 import payrollRoutes from '../payroll.routes';
 import exportRoutes from '../exportRoutes';
+import taxRoutes from '../taxRoutes';
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.use('/audit', auditRoutes);
 router.use('/balance', balanceRoutes);
 router.use('/trustline', trustlineRoutes);
 router.use('/exports', exportRoutes);
+router.use('/taxes', taxRoutes);
 
 export default router;
