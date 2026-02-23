@@ -8,6 +8,8 @@ import EmployeeEntry from "./pages/EmployeeEntry";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ErrorFallback from "./components/ErrorFallback";
 import { OnboardingTour } from "./components/OnboardingTour";
+import Login from "./pages/Login";
+import AuthCallback from "./pages/AuthCallback";
 
 // ── Icon components ────────────────────────────────────────────────────────────
 
@@ -280,6 +282,8 @@ function App() {
                         </ErrorBoundary>
                     }
                 />
+                <Route path="/login" element={<Login />} />
+                <Route path="/auth-callback" element={<AuthCallback />} />
             </Route>
         </Routes>
     );
