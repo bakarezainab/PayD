@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Code, User, Wallet, FileText, Globe } from "lucide-react";
+import { Code, User, Wallet, FileText, Globe, LayoutDashboard } from "lucide-react";
 import { Avatar } from "./Avatar";
 
 const AppNav: React.FC = () => {
@@ -16,10 +16,9 @@ const AppNav: React.FC = () => {
       <NavLink
         to="/payroll"
         className={({ isActive }) =>
-          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${
-            isActive
-              ? "text-(--accent) bg-white/5"
-              : "text-(--muted) hover:bg-white/10 hover:text-white"
+          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+            ? "text-(--accent) bg-white/5"
+            : "text-(--muted) hover:bg-white/10 hover:text-white"
           }`
         }
       >
@@ -32,10 +31,9 @@ const AppNav: React.FC = () => {
       <NavLink
         to="/employee"
         className={({ isActive }) =>
-          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${
-            isActive
-              ? "text-(--accent) bg-white/5"
-              : "text-(--muted) hover:bg-white/10 hover:text-white"
+          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+            ? "text-(--accent) bg-white/5"
+            : "text-(--muted) hover:bg-white/10 hover:text-white"
           }`
         }
       >
@@ -46,12 +44,26 @@ const AppNav: React.FC = () => {
       </NavLink>
 
       <NavLink
+        to="/portal"
+        className={({ isActive }) =>
+          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+            ? "text-(--accent) bg-white/5"
+            : "text-(--muted) hover:bg-white/10 hover:text-white"
+          }`
+        }
+      >
+        <span className="opacity-70">
+          <LayoutDashboard className="w-4 h-4" />
+        </span>
+        My Portal
+      </NavLink>
+
+      <NavLink
         to="/reports"
         className={({ isActive }) =>
-          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${
-            isActive
-              ? "text-(--accent) bg-white/5"
-              : "text-(--muted) hover:bg-white/10 hover:text-white"
+          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+            ? "text-(--accent) bg-white/5"
+            : "text-(--muted) hover:bg-white/10 hover:text-white"
           }`
         }
       >
@@ -61,30 +73,29 @@ const AppNav: React.FC = () => {
         Reports
       </NavLink>
 
-            <NavLink
-                to="/cross-asset-payment"
-                className={({ isActive }) =>
-                    `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
-                        ? "text-(--accent) bg-white/5"
-                        : "text-(--muted) hover:bg-white/10 hover:text-white"
-                    }`
-                }
-            >
-                <span className="opacity-70">
-                    <Globe className="w-4 h-4" />
-                </span>
-                Cross-Asset
-            </NavLink>
+      <NavLink
+        to="/cross-asset-payment"
+        className={({ isActive }) =>
+          `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition ${isActive
+            ? "text-(--accent) bg-white/5"
+            : "text-(--muted) hover:bg-white/10 hover:text-white"
+          }`
+        }
+      >
+        <span className="opacity-70">
+          <Globe className="w-4 h-4" />
+        </span>
+        Cross-Asset
+      </NavLink>
 
-            <div className="w-px h-5 bg-(--border-hi) mx-2" />
+      <div className="w-px h-5 bg-(--border-hi) mx-2" />
 
       <NavLink
         to="/debug"
         className={({ isActive }) =>
-          `flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-mono tracking-wide border transition ${
-            isActive
-              ? "text-(--accent2) bg-[rgba(124,111,247,0.06)] border-[rgba(124,111,247,0.25)]"
-              : "text-(--accent2) bg-[rgba(124,111,247,0.06)] border-[rgba(124,111,247,0.25)] hover:bg-[rgba(124,111,247,0.12)]"
+          `flex items-center gap-1 px-3 py-1.5 rounded-lg text-[11px] font-mono tracking-wide border transition ${isActive
+            ? "text-(--accent2) bg-[rgba(124,111,247,0.06)] border-[rgba(124,111,247,0.25)]"
+            : "text-(--accent2) bg-[rgba(124,111,247,0.06)] border-[rgba(124,111,247,0.25)] hover:bg-[rgba(124,111,247,0.12)]"
           }`
         }
       >
