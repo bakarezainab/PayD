@@ -9,6 +9,7 @@ import paymentRoutes from './routes/paymentRoutes';
 import authRoutes from './routes/authRoutes';
 import assetRoutes from './routes/assetRoutes';
 import throttlingRoutes from './routes/throttlingRoutes';
+import payrollBonusRoutes from './routes/payrollBonusRoutes';
 import { initializeSocket, emitTransactionUpdate } from './services/socketService';
 import { HealthController } from './controllers/healthController';
 import { ThrottlingService } from './services/throttlingService';
@@ -32,6 +33,7 @@ app.use('/api/employees', employeeRoutes);
 app.use('/api/payments', throttlingMiddleware(), paymentRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/throttling', throttlingRoutes);
+app.use('/api/payroll-bonus', payrollBonusRoutes);
 
 // Transaction simulation endpoint (for testing WebSocket updates)
 app.post('/api/simulate-transaction-update', (req, res) => {
