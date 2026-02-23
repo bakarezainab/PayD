@@ -1,25 +1,41 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useCallback } from "react";
+import { toast } from "sonner";
 
 interface NotificationContextType {
-    notify: (message: string) => void;
+  notify: (message: string) => void;
+  notifySuccess: (message: string, description?: string) => void;
+  notifyError: (message: string, description?: string) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined,
+);
 
-export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const notify = (message: string) => {
-        alert(message); // Placeholder for better UI notification
-    };
+export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const notify = useCallback((message: string) => {
+    toast(message);
+  }, []);
 
-    return (
-        <NotificationContext.Provider value={{ notify }}>
-            {children}
-        </NotificationContext.Provider>
-    );
+  const notifySuccess = useCallback((message: string, description?: string) => {
+    toast.success(message, { description });
+  }, []);
+
+  const notifyError = useCallback((message: string, description?: string) => {
+    toast.error(message, { description });
+  }, []);
+
+  return (
+    <NotificationContext.Provider value={{ notify, notifySuccess, notifyError }}>
+      {children}
+    </NotificationContext.Provider>
+  );
 };
 
 export const useNotification = () => {
-    const context = useContext(NotificationContext);
-    if (!context) throw new Error("useNotification must be used within NotificationProvider");
-    return context;
+  const context = useContext(NotificationContext);
+  if (!context)
+    throw new Error("useNotification must be used within NotificationProvider");
+  return context;
 };
