@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import searchController from '../controllers/searchController';
+import { authenticateJWT } from '../middlewares/auth';
+import { isolateOrganization } from '../middlewares/rbac';
 
 const router = Router();
+
+router.use(authenticateJWT);
+router.use(isolateOrganization);
 
 /**
  * @route GET /api/search/organizations/:organizationId/employees

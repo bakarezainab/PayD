@@ -10,6 +10,8 @@ const envSchema = z.object({
   REDIS_URL: z.string().optional(),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  JWT_SECRET: z.string().default('your-secret-key'),
+  JWT_REFRESH_SECRET: z.string().default('your-refresh-secret-key'),
 });
 
 export const config = envSchema.parse(process.env);
