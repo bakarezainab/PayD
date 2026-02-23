@@ -6,13 +6,11 @@ import { StellarService } from '../services/stellarService';
 
 const pool = new pg.Pool({ connectionString: config.DATABASE_URL });
 
-let redis: Redis | null = null;
-if (config.REDIS_URL) {
-    redis = new Redis(config.REDIS_URL, {
-        maxRetriesPerRequest: 1,
-        retryStrategy: () => null, // Fail fast for health check
-    });
-}
+// We use 'any' to temporarily bypass the TS namespace error
+export const redis: any | null = config.REDIS_URL ? new Redis(config.REDIS_URL, {
+    maxRetriesPerRequest: 1,
+    retryStrategy: () => null, // Fail fast for health check
+}) : null;
 
 export class HealthController {
     static async getHealthStatus(req: Request, res: Response) {
