@@ -13,12 +13,9 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "moduleResolution": "node",
     "types": ["node", "jest", "cors", "morgan"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
-    "moduleResolution": "node"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
 }
