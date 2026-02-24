@@ -31,6 +31,18 @@ interface StatusResult {
     latestAction: FreezeLog | null;
 }
 
+interface ActionApiResponse {
+    success: boolean;
+    message: string;
+    error?: string;
+}
+
+interface LogsApiResponse {
+    success: boolean;
+    data: FreezeLog[];
+    total: number;
+}
+
 type ActiveTab = 'account' | 'global' | 'status' | 'logs';
 
 // ---------------------------------------------------------------------------
@@ -84,7 +96,7 @@ export default function AdminPanel() {
 
     useEffect(() => {
         if (activeTab === 'logs') {
-            loadLogs(logsPage);
+            void loadLogs(logsPage);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab, logsPage]);
@@ -99,7 +111,7 @@ export default function AdminPanel() {
             const res = await fetch(
                 `${API_BASE}/freeze/logs?page=${page}&limit=${LOGS_PER_PAGE}`
             );
-            const data = await res.json();
+            const data = (await res.json()) as LogsApiResponse;
             if (data.success) {
                 setLogs(data.data);
                 setLogsTotal(data.total);
@@ -135,13 +147,13 @@ export default function AdminPanel() {
                     reason: accountReason || undefined,
                 }),
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Action failed');
+            const data = (await res.json()) as ActionApiResponse;
+            if (!res.ok) throw new Error(data.error ?? 'Action failed');
             notifySuccess('Success', data.message);
             setAccountSecret('');
             setAccountReason('');
-        } catch (e: any) {
-            notifyError('Action Failed', e.message);
+        } catch (err: unknown) {
+            notifyError('Action Failed', err instanceof Error ? err.message : 'Action failed');
         } finally {
             setAccountLoading(false);
         }
@@ -163,13 +175,13 @@ export default function AdminPanel() {
                     reason: globalReason || undefined,
                 }),
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Action failed');
+            const data = (await res.json()) as ActionApiResponse;
+            if (!res.ok) throw new Error(data.error ?? 'Action failed');
             notifySuccess('Success', data.message);
             setGlobalSecret('');
             setGlobalReason('');
-        } catch (e: any) {
-            notifyError('Action Failed', e.message);
+        } catch (err: unknown) {
+            notifyError('Action Failed', err instanceof Error ? err.message : 'Action failed');
         } finally {
             setGlobalLoading(false);
         }
@@ -193,11 +205,11 @@ export default function AdminPanel() {
             const res = await fetch(
                 `${API_BASE}/freeze/status/${encodeURIComponent(statusTarget)}?${params}`
             );
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Status check failed');
+            const data = (await res.json()) as StatusResult & { error?: string };
+            if (!res.ok) throw new Error(data.error ?? 'Status check failed');
             setStatusResult(data);
-        } catch (e: any) {
-            notifyError('Status Check Failed', e.message);
+        } catch (err: unknown) {
+            notifyError('Status Check Failed', err instanceof Error ? err.message : 'Status check failed');
         } finally {
             setStatusLoading(false);
         }
@@ -312,14 +324,14 @@ export default function AdminPanel() {
                         <div className="flex gap-4 mt-4">
                             <button
                                 disabled={accountLoading}
-                                onClick={() => handleAccountAction('freeze')}
+                                onClick={() => void handleAccountAction('freeze')}
                                 className="flex-1 py-4 bg-red-500/20 text-red-500 border border-red-500/50 font-black rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {accountLoading ? 'Processing...' : 'Freeze Account'}
                             </button>
                             <button
                                 disabled={accountLoading}
-                                onClick={() => handleAccountAction('unfreeze')}
+                                onClick={() => void handleAccountAction('unfreeze')}
                                 className="flex-1 py-4 bg-emerald-500/20 text-emerald-500 border border-emerald-500/50 font-black rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-lg uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {accountLoading ? 'Processing...' : 'Unfreeze Account'}
@@ -380,14 +392,14 @@ export default function AdminPanel() {
                         <div className="flex gap-4 mt-4">
                             <button
                                 disabled={globalLoading}
-                                onClick={() => handleGlobalAction('freeze')}
+                                onClick={() => void handleGlobalAction('freeze')}
                                 className="flex-1 py-4 bg-red-600/30 text-red-400 border border-red-500/50 font-black rounded-xl hover:bg-red-600 hover:text-white transition-all shadow-lg uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {globalLoading ? 'Processing...' : 'Engage Global Freeze'}
                             </button>
                             <button
                                 disabled={globalLoading}
-                                onClick={() => handleGlobalAction('unfreeze')}
+                                onClick={() => void handleGlobalAction('unfreeze')}
                                 className="flex-1 py-4 bg-emerald-500/20 text-emerald-500 border border-emerald-500/50 font-black rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-lg uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {globalLoading ? 'Processing...' : 'Lift Global Freeze'}
@@ -446,7 +458,7 @@ export default function AdminPanel() {
 
                         <button
                             disabled={statusLoading}
-                            onClick={handleStatusCheck}
+                            onClick={() => void handleStatusCheck()}
                             className="py-4 bg-black/20 border border-hi font-black rounded-xl hover:bg-black/40 transition-all shadow-lg uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {statusLoading ? 'Checking...' : 'Check Status'}
@@ -516,7 +528,7 @@ export default function AdminPanel() {
                                     </span>
                                 )}
                                 <button
-                                    onClick={() => loadLogs(logsPage)}
+                                    onClick={() => void loadLogs(logsPage)}
                                     disabled={logsLoading}
                                     className="text-xs bg-black/20 px-3 py-1.5 rounded border border-hi hover:bg-black/40 disabled:opacity-50"
                                 >
