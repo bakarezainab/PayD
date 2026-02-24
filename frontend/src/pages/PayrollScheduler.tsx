@@ -20,13 +20,13 @@ interface PayrollFormState {
 }
 
 const formatDate = (dateString: string) => {
-  if (!dateString) return "N/A";
+  if (!dateString) return 'N/A';
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   });
 };
 
@@ -40,8 +40,7 @@ interface PendingClaim {
 }
 
 // Mock employer secret key for simulation purposes
-const MOCK_EMPLOYER_SECRET =
-  "SD3X5K7G7XV4K5V3M2G5QXH434M3VX6O5P3QVQO3L2PQSQQQQQQQQQQQ";
+const MOCK_EMPLOYER_SECRET = 'SD3X5K7G7XV4K5V3M2G5QXH434M3VX6O5P3QVQO3L2PQSQQQQQQQQQQQ';
 
 const initialFormState: PayrollFormState = {
   employeeName: '',
@@ -145,9 +144,7 @@ export default function PayrollScheduler() {
     };
   }, [socket, notifySuccess]);
 
-  const handleInitialize = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleInitialize = async () => {
     if (!formData.employeeName || !formData.amount) {
       notifyError('Missing required fields', 'Please provide employee name and amount.');
       return;
@@ -164,17 +161,17 @@ export default function PayrollScheduler() {
     setIsBroadcasting(true);
     try {
       const mockRecipientPublicKey = generateWallet().publicKey;
-      
+
       // Integrate claimable balance logic from Issue #44
       const result = createClaimableBalanceTransaction(
         MOCK_EMPLOYER_SECRET,
         mockRecipientPublicKey,
         String(formData.amount),
-        "USDC"
+        'USDC'
       );
 
       if (!result.success) {
-          throw new Error("Failed to create claimable balance");
+        throw new Error('Failed to create claimable balance');
       }
 
       // Simulate a brief delay for network broadcast
@@ -189,7 +186,7 @@ export default function PayrollScheduler() {
         claimantPublicKey: mockRecipientPublicKey,
         status: 'Pending Claim',
       };
-      
+
       const updatedClaims = [...pendingClaims, newClaim];
       setPendingClaims(updatedClaims);
       localStorage.setItem('pending-claims', JSON.stringify(updatedClaims));
@@ -204,21 +201,21 @@ export default function PayrollScheduler() {
 
       // Trigger Webhook Event (Internal simulation)
       try {
-          await fetch('http://localhost:3001/api/webhooks/test-trigger', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                  event: 'payment.completed',
-                  payload: {
-                      id: newClaim.id,
-                      employeeName: newClaim.employeeName,
-                      amount: newClaim.amount,
-                      status: 'created'
-                  }
-              })
-          });
-      } catch (e) {
-          console.warn("Webhook test-trigger skipped (Backend might not be running)");
+        await fetch('http://localhost:3001/api/webhooks/test-trigger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: 'payment.completed',
+            payload: {
+              id: newClaim.id,
+              employeeName: newClaim.employeeName,
+              amount: newClaim.amount,
+              status: 'created',
+            },
+          }),
+        });
+      } catch {
+        console.warn('Webhook test-trigger skipped (Backend might not be running)');
       }
 
       resetSimulation();
@@ -246,15 +243,18 @@ export default function PayrollScheduler() {
             {t('payroll.title', 'Workforce')}{' '}
             <span className="text-accent">{t('payroll.titleHighlight', 'Scheduler')}</span>
           </Heading>
-          <Text as="p" size="sm" weight="regular" addlClassName="text-muted font-mono tracking-wider uppercase">
+          <Text
+            as="p"
+            size="sm"
+            weight="regular"
+            addlClassName="text-muted font-mono tracking-wider uppercase"
+          >
             {t('payroll.subtitle', 'Automated distribution engine')}
           </Text>
         </div>
         <div className="flex flex-col items-end gap-2">
           <AutosaveIndicator saving={saving} lastSaved={lastSaved} />
-          <button
-            onClick={() => setIsWizardOpen(true)}
-          >
+          <button onClick={() => setIsWizardOpen(true)}>
             <svg
               width="14"
               height="14"
@@ -316,7 +316,8 @@ export default function PayrollScheduler() {
           <div className="lg:col-span-3">
             <form
               onSubmit={(e: React.FormEvent) => {
-                void handleInitialize(e);
+                e.preventDefault();
+                void handleInitialize();
               }}
               className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 card glass noise"
             >
@@ -427,7 +428,12 @@ export default function PayrollScheduler() {
                 </svg>
                 Pre-flight Validation
               </Heading>
-              <Text as="p" size="xs" weight="regular" addlClassName="text-muted leading-relaxed mb-4">
+              <Text
+                as="p"
+                size="xs"
+                weight="regular"
+                addlClassName="text-muted leading-relaxed mb-4"
+              >
                 All transactions are simulated via Stellar Horizon before submission. This catches
                 common errors like:
               </Text>
@@ -443,25 +449,41 @@ export default function PayrollScheduler() {
       )}
 
       <div className="w-full">
-        <Heading as="h2" size="sm" weight="bold" addlClassName="mb-4">Pending Claims</Heading>
+        <Heading as="h2" size="sm" weight="bold" addlClassName="mb-4">
+          Pending Claims
+        </Heading>
         <Card>
           {pendingClaims.length === 0 ? (
-            <Text as="p" size="sm" weight="regular" addlClassName="text-muted">No pending claimable balances.</Text>
+            <Text as="p" size="sm" weight="regular" addlClassName="text-muted">
+              No pending claimable balances.
+            </Text>
           ) : (
             <ul className="flex flex-col gap-4">
               {pendingClaims.map((claim: PendingClaim) => (
                 <li key={claim.id} className="border border-hi p-4 rounded-lg">
                   <div className="flex justify-between mb-2">
-                    <Heading as="h3" size="xs" weight="bold">{claim.employeeName}</Heading>
+                    <Heading as="h3" size="xs" weight="bold">
+                      {claim.employeeName}
+                    </Heading>
                     <span className="bg-accent/20 text-accent px-2 py-1 rounded-full text-xs">
                       {claim.status}
                     </span>
                   </div>
                   <div className="text-sm text-muted flex justify-between items-center">
                     <div>
-                      <Text as="p" size="xs" weight="regular">Amount: {claim.amount} USDC</Text>
-                      <Text as="p" size="xs" weight="regular">Scheduled: {formatDate(claim.dateScheduled)}</Text>
-                      <Text as="p" size="xs" weight="regular" addlClassName="font-mono truncate max-w-[200px]" title={claim.claimantPublicKey}>
+                      <Text as="p" size="xs" weight="regular">
+                        Amount: {claim.amount} USDC
+                      </Text>
+                      <Text as="p" size="xs" weight="regular">
+                        Scheduled: {formatDate(claim.dateScheduled)}
+                      </Text>
+                      <Text
+                        as="p"
+                        size="xs"
+                        weight="regular"
+                        addlClassName="font-mono truncate max-w-[200px]"
+                        title={claim.claimantPublicKey}
+                      >
                         To: {claim.claimantPublicKey}
                       </Text>
                     </div>
