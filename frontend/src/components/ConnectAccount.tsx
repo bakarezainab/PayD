@@ -63,7 +63,6 @@ const ConnectAccount: React.FC = () => {
         </div>
     );
   }
-
   return (
     <button
       onClick={() => {
@@ -75,14 +74,12 @@ const ConnectAccount: React.FC = () => {
       {isConnecting ? (
         <span className="flex items-center gap-2">
           <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          {t("connectAccount.connecting") || "Connecting..."}
+          {t('connectAccount.connecting') || 'Connecting...'}
         </span>
       ) : (
         <>
-          {t("connectAccount.connect")}{" "}
-          <span className="hidden sm:inline">
-            {t("connectAccount.wallet")}
-          </span>
+          {t('connectAccount.connect')}{' '}
+          <span className="hidden sm:inline">{t('connectAccount.wallet')}</span>
         </>
       )}
     </button>

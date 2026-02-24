@@ -1,10 +1,8 @@
-import React, { useCallback } from "react";
-import { toast } from "sonner";
-import { NotificationContext } from "../hooks/useNotification";
+import React, { useCallback } from 'react';
+import { toast } from 'sonner';
+import { NotificationContext } from '../hooks/useNotification';
 
-export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const notify = useCallback((message: string) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
     (toast as any)(message);
@@ -26,4 +24,3 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
     </NotificationContext>
   );
 };
-

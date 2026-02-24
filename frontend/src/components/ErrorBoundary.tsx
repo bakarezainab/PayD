@@ -1,8 +1,8 @@
-import React from "react";
-import * as Sentry from "@sentry/react";
+import React from 'react';
+import * as Sentry from '@sentry/react';
 
 type ErrorBoundaryProps = {
-  Fallback: React.ComponentType<FallbackProps>;
+  fallback: React.ReactNode;
   children: React.ReactNode;
 };
 
@@ -10,14 +10,7 @@ type ErrorBoundaryState = {
   hasError: boolean;
 };
 
-interface FallbackProps {
-  onReset: () => void;
-}
-
-export default class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = {
     hasError: false,
   };
@@ -34,14 +27,9 @@ export default class ErrorBoundary extends React.Component<
     });
   }
 
-  private handleReset = () => {
-    this.setState({ hasError: false });
-  };
-
   render() {
     if (this.state.hasError) {
-      const { Fallback } = this.props;
-      return <Fallback onReset={this.handleReset} />;
+      return this.props.fallback;
     }
 
     return this.props.children;
