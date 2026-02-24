@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Icon, Button, Card, Input, Select, Alert, Heading, Text } from '@stellar/design-system';
+import { Icon, Button, Card, Input, Select, Alert } from '@stellar/design-system';
 import { EmployeeList } from '../components/EmployeeList';
 import { AutosaveIndicator } from '../components/AutosaveIndicator';
 import { WalletQRCode } from '../components/WalletQRCode';

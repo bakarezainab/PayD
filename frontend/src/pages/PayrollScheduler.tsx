@@ -7,7 +7,7 @@ import { useNotification } from '../hooks/useNotification';
 import { useSocket } from '../hooks/useSocket';
 import { createClaimableBalanceTransaction, generateWallet } from '../services/stellar';
 import { useTranslation } from 'react-i18next';
-import { Card, Heading, Text, Button, Input, Select, Alert } from '@stellar/design-system';
+import { Card, Heading, Text, Button, Input, Select } from '@stellar/design-system';
 import { SchedulingWizard } from '../components/SchedulingWizard';
 import { CountdownTimer } from '../components/CountdownTimer';
 
@@ -254,10 +254,20 @@ export default function PayrollScheduler() {
           <AutosaveIndicator saving={saving} lastSaved={lastSaved} />
           <button
             onClick={() => setIsWizardOpen(true)}
-            className="bg-accent/10 border border-accent/30 text-accent font-bold px-4 py-2 rounded-lg text-sm hover:bg-accent/20 transition-colors flex items-center gap-2"
           >
-            <Icon.Calendar size="sm" />
-            Configure Automation
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
           </button>
         </div>
       </div>
@@ -267,7 +277,18 @@ export default function PayrollScheduler() {
           <div className="absolute top-0 left-0 w-1 h-full bg-success"></div>
           <div>
             <h3 className="text-success font-black text-lg mb-1 flex items-center gap-2">
-              <Icon.Check size="md" />
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               Automation Active
             </h3>
             <p className="text-muted text-sm">
@@ -356,7 +377,7 @@ export default function PayrollScheduler() {
                     disabled={isSimulating}
                     variant="primary"
                     size="md"
-                    fullWidth
+                    isFullWidth
                   >
                     {isSimulating
                       ? 'Simulating...'
@@ -371,7 +392,7 @@ export default function PayrollScheduler() {
                     disabled={isBroadcasting}
                     variant="primary"
                     size="md"
-                    fullWidth
+                    isFullWidth
                   >
                     {isBroadcasting ? 'Broadcasting...' : 'Confirm & Broadcast to Network'}
                   </Button>
@@ -390,7 +411,20 @@ export default function PayrollScheduler() {
 
             <div className="card glass noise h-fit">
               <Heading as="h3" size="xs" weight="bold" addlClassName="mb-4 flex items-center gap-2">
-                <Icon.Info size="sm" />
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
                 Pre-flight Validation
               </Heading>
               <Text as="p" size="xs" weight="regular" addlClassName="text-muted leading-relaxed mb-4">
