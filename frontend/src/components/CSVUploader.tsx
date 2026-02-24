@@ -232,8 +232,8 @@ export const CSVUploader: React.FC<CSVUploaderProps> = ({
                                         <td className="px-4 py-3 text-red-600 text-xs">
                                             {row.errors.length > 0 ? (
                                                 <ul className="space-y-1">
-                                                    {row.errors.map((error, idx) => (
-                                                        <li key={idx}>• {error}</li>
+                                                    {row.errors.map((error) => (
+                                                       <li key={`${row.rowNumber}-${error}`}>• {error}</li>
                                                     ))}
                                                 </ul>
                                             ) : (
