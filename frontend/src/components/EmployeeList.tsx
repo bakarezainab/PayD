@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Avatar } from './Avatar';
 import { CSVUploader } from './CSVUploader';
 import type { CSVRow } from './CSVUploader';
-import { Pencil, Trash2, PlusCircle } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface Employee {
   id: string;
