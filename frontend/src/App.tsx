@@ -12,10 +12,9 @@ import CustomReportBuilder from './pages/CustomReportBuilder';
 import CrossAssetPayment from './pages/CrossAssetPayment';
 import TransactionHistory from './pages/TransactionHistory';
 
-
 import EmployeePortal from './pages/EmployeePortal';
-import Login from "./pages/Login";
-import AuthCallback from "./pages/AuthCallback";
+import Login from './pages/Login';
+import AuthCallback from './pages/AuthCallback';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -125,7 +124,7 @@ function App() {
         <Route
           path="/settings"
           element={
-            <ErrorBoundary fallback={<ErrorFallback onReset={() => { }} />}>
+            <ErrorBoundary fallback={<ErrorFallback onReset={() => {}} />}>
               <Settings />
             </ErrorBoundary>
           }
@@ -133,7 +132,7 @@ function App() {
         <Route
           path="/help"
           element={
-            <ErrorBoundary fallback={<ErrorFallback onReset={() => { }} />}>
+            <ErrorBoundary fallback={<ErrorFallback onReset={() => {}} />}>
               <HelpCenter />
             </ErrorBoundary>
           }
@@ -141,7 +140,7 @@ function App() {
         <Route
           path="/cross-asset-payment"
           element={
-            <ErrorBoundary fallback={<ErrorFallback onReset={() => { }} />}>
+            <ErrorBoundary fallback={<ErrorFallback onReset={() => {}} />}>
               <CrossAssetPayment />
             </ErrorBoundary>
           }
@@ -149,7 +148,7 @@ function App() {
         <Route
           path="/transactions"
           element={
-            <ErrorBoundary fallback={<ErrorFallback onReset={() => { }} />}>
+            <ErrorBoundary fallback={<ErrorFallback onReset={() => {}} />}>
               <TransactionHistory />
             </ErrorBoundary>
           }

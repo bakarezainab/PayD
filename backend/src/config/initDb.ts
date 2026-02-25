@@ -21,16 +21,16 @@ CREATE TABLE IF NOT EXISTS social_identities (
 `;
 
 async function initDb() {
-    try {
-        await pool.query(schema);
-        console.log('Database schema initialized');
-    } catch (err) {
-        console.error('Error initializing database schema:', err);
-    } finally {
-        await pool.end();
-    }
+  try {
+    await pool.query(schema);
+    console.log('Database schema initialized');
+  } catch (err) {
+    console.error('Error initializing database schema:', err);
+  } finally {
+    await pool.end();
+  }
 }
 
 if (require.main === module) {
-    initDb();
+  initDb();
 }

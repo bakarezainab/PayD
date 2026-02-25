@@ -27,9 +27,9 @@ The **Distribution** account receives the initial token supply and acts as the o
 
 ## Authorization Flags
 
-| Flag | Value | Purpose |
-|------|-------|---------|
-| `auth_required` | `0x1` | All accounts must be explicitly authorized by the Issuer before they can hold ORGUSD. Prevents unauthorized holding. |
+| Flag             | Value | Purpose                                                                                                                    |
+| ---------------- | ----- | -------------------------------------------------------------------------------------------------------------------------- |
+| `auth_required`  | `0x1` | All accounts must be explicitly authorized by the Issuer before they can hold ORGUSD. Prevents unauthorized holding.       |
 | `auth_revocable` | `0x2` | The Issuer can revoke authorization and clawback tokens from any account. Required for compliance and clawback operations. |
 
 These flags are set on the Issuer account via `Operation.setOptions({ setFlags })` before any trustlines or payments are created.
@@ -65,14 +65,14 @@ On testnet, keypairs are generated fresh each time the issuance script runs. The
 
 For mainnet deployment, the following strategy should be adopted:
 
-| Concern | Approach |
-|---------|----------|
-| **Secret storage** | Use a hardware security module (HSM) or cloud KMS (e.g., AWS KMS, HashiCorp Vault). Never store production secret keys in plaintext files or environment variables. |
-| **Issuer key access** | Restrict to a multi-signature scheme (2-of-3 or 3-of-5). The Issuer key should be cold-stored and only used for authorization and flag changes. |
-| **Distribution key access** | Can be a hot wallet with operational access, but should still use multi-sig for large transfers. Rate-limit outgoing payments. |
-| **Key rotation** | The Distribution account can be rotated by creating a new account, establishing a trustline, authorizing it, transferring the balance, and deauthorizing the old account. The Issuer account cannot be rotated without re-issuing the entire asset. |
-| **Backup** | Maintain encrypted backups of all keypairs in geographically separate locations. Use Shamir's Secret Sharing for the Issuer key. |
-| **Audit trail** | Log all key usage (authorization, payments, clawbacks) to the `clawback_audit_logs` and `payroll_audit_logs` tables. |
+| Concern                     | Approach                                                                                                                                                                                                                                            |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Secret storage**          | Use a hardware security module (HSM) or cloud KMS (e.g., AWS KMS, HashiCorp Vault). Never store production secret keys in plaintext files or environment variables.                                                                                 |
+| **Issuer key access**       | Restrict to a multi-signature scheme (2-of-3 or 3-of-5). The Issuer key should be cold-stored and only used for authorization and flag changes.                                                                                                     |
+| **Distribution key access** | Can be a hot wallet with operational access, but should still use multi-sig for large transfers. Rate-limit outgoing payments.                                                                                                                      |
+| **Key rotation**            | The Distribution account can be rotated by creating a new account, establishing a trustline, authorizing it, transferring the balance, and deauthorizing the old account. The Issuer account cannot be rotated without re-issuing the entire asset. |
+| **Backup**                  | Maintain encrypted backups of all keypairs in geographically separate locations. Use Shamir's Secret Sharing for the Issuer key.                                                                                                                    |
+| **Audit trail**             | Log all key usage (authorization, payments, clawbacks) to the `clawback_audit_logs` and `payroll_audit_logs` tables.                                                                                                                                |
 
 ### Environment Variables
 
